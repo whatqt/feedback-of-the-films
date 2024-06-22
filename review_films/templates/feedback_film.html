@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя форма</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="movie_title">Название фильма :</label>
+            <input type="text" id="movie_title" name="movie_title" value="{{movie_title}}" readonly required>
+        </div>
+        <div>
+            <label for="movie_authors">Авторы фильма:</label>
+            <input type="text" id="movie_authors" name="movie_authors" value="{{movie_authors}}" readonly required>
+        </div>
+        <div>
+            <label for="movie_review">Рецензия на фильм:</label>
+            <textarea id="movie_review" name="movie_review" rows="4" cols="50" required></textarea>
+        </div>
+        <div>
+            <button type="submit">Отправить</button>
+        </div>
+    </form>
+</body>
+</html>

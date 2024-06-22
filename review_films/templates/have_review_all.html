@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Фильмы на которые есть рецензии</h1>
+    {% for key, info in data.items %}
+    <p>
+        <div>
+            <a href="http://127.0.0.1:8000/select_films/view_feedback?movie_title={{info.0}}&movie_authors={{info.1}}&brief_information={{info.2}}">
+            <span class="small">
+                    <h2>Название фильма:</h2><h3>{{info.0}}</h3>
+                </span>
+            </a>
+            <span class="medium">
+                <h2>Год выпуска и страна:</h2><h3>{{info.1}}</h3>
+            </span>
+            <span class="large">
+                {% if info.2 == '' %}
+                    <h2>Мини-содержание фильма:</h2><h3>Отсутсвует</h3>
+                {% else %}
+                    <h2>Мини-содержание фильма:</h2><h3>{{info.2}}</h3>
+                {% endif %}
+            </span>
+        </div>
+    </p>
+    {% endfor %}
+</body>
+</html>

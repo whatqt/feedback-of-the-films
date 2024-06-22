@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="review-container">
+        <h1 class="movie-title">Название фильма: {{film_data.0}}</h1>
+        <p class="release-year">Год выпуска фильма: {{film_data.1}}</p>
+        <h3 class="review-text">Описание фильма: {{film_data.2}}</h3>
+    </div>
+    <br>
+    {% for key, info in review_data.items %}
+    <div class="review-container">
+        <h1 class="nameuser">Имя пользователя: {{info.0}}</h1>
+        <p class="release-year">Дата рецензии: {{info.1}}</p>
+        <h2 class="review-text">Рецензия: {{info.2}}</h3>
+    </div>
+    <br>
+    {% endfor %}
+</body>
+</html>

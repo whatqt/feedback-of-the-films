@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Form</title>
+    <style>
+        .small {
+            font-size: 0.9em;
+        }
+        .medium {
+            font-size: 1em;
+        }
+        .large {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Фильмы которые нашлись по слову <strong>{{movie_name_post}}</strong></h1>
+    {% for key, info in films_dict.items %}
+    <p>
+        <div>
+            <a href="http://127.0.0.1:8000/select_films/feedback_film?movie_title={{info.0}}&movie_authors={{info.1}}&brief_information={{info.2}}">
+            <span class="small">
+                    <h2>Название фильма:</h2><h3>{{info.0}}</h3>
+                </span>
+            </a>
+            <span class="medium">
+                <h2>Год выпуска и страна:</h2><h3>{{info.1}}</h3>
+            </span>
+            <span class="large">
+                <h2>Мини-содержание фильма:</h2><h3>{{info.2}}</h3>
+            </span>
+        </div>
+    </p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Title Form</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label for="movie_title">Название фильма:</label>
+        <input type="text" id="movie_name" name="movie_name" required><br>
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for info in data %}
+    <div class="review-container">
+        <a href="http://127.0.0.1:8000/select_films/editing_my_review?movie_title={{info.0}}&movie_authors={{info.1}}&brief_information={{info.2}}">
+            <h1 class="movie-title">Название фильма: {{info.0}}</h1>
+        </a>
+        <h2 class="release-year">Год выпуска фильма: {{info.1}}</h2>
+        <h2 class="movie-info">Информация о фильме: {{info.2}}</h2>
+        <h4 class="review-date">Дата рецензии: {{info.4}}</h4>
+        <h3 class="review-text">Рецензия: {{info.3}}</h3>
+    </div>
+    {% endfor %}
+</body>
+</html>

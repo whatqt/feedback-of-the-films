@@ -3,5 +3,5 @@ from .consumers import ChatSaport
 
 
 ws_urlpatterns = [
-    path('<str:name_saport_room>', ChatSaport.as_asgi()),
+    path('', ChatSaport.as_asgi()),
 ]

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Saport Chat</title>
+</head>
+<body>
+    <form action="/SupportChat?username={{username}}&id_ticket={{id_ticket}}">
+    {% csrf_token %}
+    <h1><input type="submit" value="Создать тикет"></h1>
+    </form>
+
+    
+</body>
+</html>

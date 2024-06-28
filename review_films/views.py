@@ -109,6 +109,7 @@ def feedback_films(request: HttpRequest):
             )
         return HttpResponse('<h1>Ваша рецензия была добавлена</h1>')
 
+
 @login_required(login_url=LOGIN_URL)
 def have_review(request: HttpRequest):
     films = Test_DataFullInfoFilms.objects.values_list('movie_title', 'movie_authors', 'brief_informatio')

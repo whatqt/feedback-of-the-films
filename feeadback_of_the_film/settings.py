@@ -36,9 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
+    'channels',
     'register',
     'review_films',
+    'saport',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +73,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'feeadback_of_the_film.wsgi.application'
+ASGI_APPLICATION = 'feeadback_of_the_film.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

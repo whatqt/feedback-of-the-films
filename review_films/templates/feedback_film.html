@@ -21,8 +21,21 @@
             <textarea id="movie_review" name="movie_review" rows="4" cols="50" required></textarea>
         </div>
         <div>
+            <label for="evaluation">Оцена фильма по 10 звёздочной системе</label>
+            <input type="number" id="movie_evaluation" name="movie_evaluation", min="1", max="10">
+        </div>
+        <div>
             <button type="submit">Отправить</button>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            $("#movie_evaluation").on("keydown", function(event) {
+                event.preventDefault();
+            });
+        });
+        </script>        
     </form>
+    
 </body>
 </html>

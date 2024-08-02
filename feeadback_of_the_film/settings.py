@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'register',
     'review_films',
     'saport',
+    'admin_panel'
 ]
 
 MIDDLEWARE = [

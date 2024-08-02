@@ -7,6 +7,7 @@ from datetime import datetime
 from .utils import random_id_ticket
 
 
+
 LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 
 
@@ -26,8 +27,7 @@ def ChatSupport(request: HttpRequest):
         id_ticket_get = request.GET.get('id_ticket')
         print(username_get)
         print(id_ticket_get)
-        if username_get is None or id_ticket_get is None:
-            return HttpResponse(status=404)
+
         time = datetime.today()
         with connection.cursor() as cursor:
             try:
@@ -46,3 +46,7 @@ def ChatSupport(request: HttpRequest):
                 return HttpResponse('<h1>У вас уже есть чат</h1>', status=404)
 
         return render(request, 'SupportChat.html')
+    
+@login_required(login_url=LOGIN_URL)
+def modoretor_SupportChat(request: HttpRequest):
+    pass

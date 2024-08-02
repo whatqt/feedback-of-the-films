@@ -12,38 +12,36 @@ from django.contrib.auth.models import User
 def index_home(request: HttpRequest):
     return HttpResponse('Главная страница')
 
-def index_reg(request: HttpRequest):
-    return HttpResponse('Домашняя страница регистрации')
 
 def log_in(request: HttpRequest):
     if request.method == 'POST':
         try:
             user_name_post = request.POST.get('username').replace(' ', '')
-            password_post = password_to_hash(request.POST.get('password').replace(' ', ''))
-            # Test_accounts.objects.create(username=user_name_post, password=password_post)
+            password_post = request.POST.get('password').replace(' ', '')
             print(user_name_post)
             print(password_post)
-            data_user = Test_accounts.objects.filter(username=user_name_post).values()[0]
-            print(data_user)
-            if data_user['password'] == password_post:
-                user = authenticate(request, username=user_name_post, password=password_post)
-                print(user)
-                login(request, user)
-                return redirect('/select_films/')
-            else:
-                return HttpResponse(f'Неправильный пароль или логин')
-        except IntegrityError:
-            return HttpResponse(f'<h1>Ник {user_name_post} уже занят</h1>')
-        except IndexError:
-            return HttpResponse(f'<h1>Аккаунт с ником {user_name_post}не найден/h1>')
+            data_user = User.objects.filter(username=user_name_post).values()[0]
+            print(User.objects.filter(username=user_name_post))
+            print(data_user["is_staff"])            
+            user = authenticate(request, username=user_name_post, password=password_post)
+            print(user)
+            login(request, user)
+            if data_user["is_staff"] is True:
+                return redirect('/admin_panel/')
+            return redirect('/select_films/')
+        except (IndexError,AttributeError):
+            return HttpResponse(f'<h1>Неверный логин или пароль!</h1>')
     else:
         return render(request, 'log_in.html')
 
 def register(request: HttpRequest):
     if request.method == 'POST':
         user_name_post = request.POST.get('username').replace(' ', '')
-        password_post = password_to_hash(request.POST.get('password').replace(' ', ''))
-        Test_accounts.objects.create(username=user_name_post, password=password_post)
+        password_post = request.POST.get('password').replace(' ', '')
+        check_repeat_name = User.objects.filter(username=user_name_post)
+        print(check_repeat_name)
+        if check_repeat_name:
+            return HttpResponse('Такой ник уже занят')            
         User.objects.create_user(user_name_post, None, password_post)
         return redirect('/register/log_in')
     else:

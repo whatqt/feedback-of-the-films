@@ -29,7 +29,7 @@ def log_in(request: HttpRequest):
             if data_user["is_staff"] is True:
                 return redirect('/admin_panel/')
             return redirect('/select_films/')
-        except (IndexError,AttributeError):
+        except (IndexError, AttributeError):
             return HttpResponse(f'<h1>Неверный логин или пароль!</h1>')
     else:
         return render(request, 'log_in.html')

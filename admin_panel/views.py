@@ -9,4 +9,3 @@ def index_admin(request: HttpRequest):
     check_staff = User.objects.filter(username=username).values()[0]
     if check_staff['is_staff'] is True:
         return HttpResponse("Добро пожаловать в панель администратора")
-    return HttpResponse(status=404)

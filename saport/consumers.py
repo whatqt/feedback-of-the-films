@@ -1,17 +1,28 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .models import InfoTicket
+from .utils import random_id_ticket
+from django.db import connection
+
+
 
 class ChatSaport(AsyncWebsocketConsumer):
     async def connect(self):
-        print('1')        
-        self.roomGroupName = 'SaportChat'
+        print('1')
+        id_ticket = random_id_ticket()
+        # with connection.cursor() as cursor:
+        #     cursor.execute("""
+        #         INSERT INTO 
+        #     """)     
+        self.roomGroupName = id_ticket
         await self.channel_layer.group_add(
             self.roomGroupName,
             self.channel_name
         )
+
         await self.accept()
 
-    async def disconnect(self , close_code):
+    async def disconnect(self):
         print('2')
         await self.channel_layer.group_discard(
             self.roomGroupName , 

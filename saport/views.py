@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.db import connection
-from django.db.utils import IntegrityError
+from django.db.utils import IntegrityError, ProgrammingError
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .utils import random_id_ticket
-
-
+from .models import InfoTicket
 
 LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 
@@ -21,31 +20,35 @@ def CreateChatSupport(request: HttpRequest):
     )
 
 @login_required(login_url=LOGIN_URL)
-def ChatSupport(request: HttpRequest):
-    if request.method == 'GET':
-        username_get = request.GET.get('username')
-        id_ticket_get = request.GET.get('id_ticket')
-        print(username_get)
-        print(id_ticket_get)
+def ChatSupport(request: HttpRequest, name='test'):
+    username = request.GET.get('username')
+    id_ticket = request.GET.get('id_ticket')
+    print(username)
+    print(id_ticket)
 
-        time = datetime.today()
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute(f'''
-                CREATE TABLE {username_get}_ticket
-                (   
-                    id_ticket varchar(11) PRIMARY KEY,
-                    username varchar(40),
-                    date_create timestamp without time zone,
-                    username_staf varchar(40)
-                );
-                INSERT INTO {username_get}_ticket
-                VALUES ('{id_ticket_get}', '{username_get}', TIMESTAMP '{time}', 'None')
-                ''')
-            except IntegrityError:
-                return HttpResponse('<h1>У вас уже есть чат</h1>', status=404)
+    time = datetime.today()
 
-        return render(request, 'SupportChat.html')
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(f'''
+            CREATE TABLE {username}_ticket
+            (   
+                id_ticket varchar(11) PRIMARY KEY,
+                username varchar(40),
+                date_create timestamp without time zone,
+                username_staf varchar(40)
+            );
+            INSERT INTO {username}_ticket
+            VALUES ('None', '{username}', TIMESTAMP '{time}', 'None')
+            ''')
+        
+            # InfoTicket.objects.create(id_ticket=id_ticket, username_create_ticket=username, date_create_ticket=datetime.today())
+
+        except ProgrammingError:
+            return HttpResponse('<h1>У вас уже есть чат</h1>', status=404)
+            
+    return render(request, 'SupportChat.html', {'username': username, 'id_ticket': id_ticket})
+
     
 @login_required(login_url=LOGIN_URL)
 def modoretor_SupportChat(request: HttpRequest):

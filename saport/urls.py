@@ -3,5 +3,5 @@ from .views import CreateChatSupport, ChatSupport
 
 urlpatterns = [
     path('', CreateChatSupport),
-    path('SupportChat', ChatSupport)
+    path('SupportChat/', ChatSupport)
 ]

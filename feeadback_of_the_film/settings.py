@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'channels',
     'register',
     'review_films',
-    'saport',
+    'support',
     'admin_panel'
 ]
 

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SaportConfig(AppConfig):
+class SupportConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'saport'
+    name = 'support'

@@ -1,20 +1,18 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import InfoTicket
+from .models import DataTicket
 from .utils import random_id_ticket
 from django.db import connection
+from django.db.utils import IntegrityError, ProgrammingError
+from .cache_id_ticket import cache_id_ticket
 
 
 
 class ChatSaport(AsyncWebsocketConsumer):
-    async def connect(self):
+    async def connect(self,):
         print('1')
-        id_ticket = random_id_ticket()
-        # with connection.cursor() as cursor:
-        #     cursor.execute("""
-        #         INSERT INTO 
-        #     """)     
-        self.roomGroupName = id_ticket
+        self.roomGroupName = cache_id_ticket[0]
+        del cache_id_ticket[0]
         await self.channel_layer.group_add(
             self.roomGroupName,
             self.channel_name
@@ -42,7 +40,7 @@ class ChatSaport(AsyncWebsocketConsumer):
                 "username" : username ,
             })
         
-    async def sendMessage(self , event):
+    async def sendMessage(self, event):
         print('4')
         message = event["message"]
         username = event["username"]

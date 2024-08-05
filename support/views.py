@@ -5,7 +5,10 @@ from django.db.utils import IntegrityError, ProgrammingError
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .utils import random_id_ticket
-from .models import InfoTicket
+from .models import DataTicket
+from .cache_id_ticket import cache_id_ticket
+
+
 
 LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 
@@ -14,6 +17,7 @@ LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 def CreateChatSupport(request: HttpRequest): 
     username = request.user
     id_ticket = random_id_ticket()
+    print(id_ticket)
     return render(
     request, 'CreateSupportChat.html', 
     {'username': username, 'id_ticket': id_ticket}
@@ -39,11 +43,18 @@ def ChatSupport(request: HttpRequest, name='test'):
                 username_staf varchar(40)
             );
             INSERT INTO {username}_ticket
-            VALUES ('None', '{username}', TIMESTAMP '{time}', 'None')
+            VALUES ('{id_ticket}', '{username}', TIMESTAMP '{time}', 'None')
             ''')
-        
-            # InfoTicket.objects.create(id_ticket=id_ticket, username_create_ticket=username, date_create_ticket=datetime.today())
 
+            DataTicket.objects.create(
+                id_ticket=id_ticket,
+                username_create_ticket=username,
+                date_create_ticket=time
+                )
+            
+            cache_id_ticket.append(id_ticket)
+
+            
         except ProgrammingError:
             return HttpResponse('<h1>У вас уже есть чат</h1>', status=404)
             

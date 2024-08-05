@@ -9,6 +9,6 @@ urlpatterns = [
     path('', index_home),
     path('register/', include('register.urls')),
     path('select_films/', include('review_films.urls')),  
-    path('support/', include('saport.urls')),
+    path('support/', include('support.urls')),
     path('admin_panel/', include('admin_panel.urls'))  
 ]

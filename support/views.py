@@ -61,7 +61,10 @@ def ChatSupport(request: HttpRequest):
 
             
         except ProgrammingError:
-            return HttpResponse('<h1>У вас уже есть чат</h1>', status=404)
+            id_ticket = DataTicket.objects.get(username_create_ticket=request.user.username).id_ticket
+            print(id_ticket)
+            cache_id_ticket.append(id_ticket)
+            return render(request, 'SupportChat.html', {'username': request.user.username})
             
     return render(request, 'SupportChat.html', {'username': username, 'id_ticket': id_ticket})
 

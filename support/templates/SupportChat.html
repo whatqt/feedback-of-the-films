@@ -24,7 +24,9 @@
 <body>
     <div class="header">
         <h1>Чат с модератором</h1>
-        <button id="closeTicketButton">Закрыть тикет</button>
+        {% if  request.user.is_staff is True %}
+          <button id="closeTicketButton">Закрыть тикет</button>
+        {% endif %}
     </div>
     <br>
     <div class="chat__item__container" id="id_chat_item_container">
@@ -64,6 +66,7 @@
         document.querySelector("#closeTicketButton").onclick = function () {
             // Логика закрытия тикета
             alert("Тикет закрыт!");
+            chatSocket.close()
             // Здесь можно добавить логику для закрытия тикета, например, отправку сообщения на сервер
         };
     </script>

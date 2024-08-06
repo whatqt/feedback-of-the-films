@@ -22,13 +22,6 @@ class ChatSaport(AsyncWebsocketConsumer):
         )
         
         await self.accept()
-
-        # usernname = self.scope["user"]
-        # print(usernname)
-        # is_staff = User.objects.filter(is_staff=True)
-        # print(is_staff)
-
-        
         
     async def disconnect(self):
         print('2')

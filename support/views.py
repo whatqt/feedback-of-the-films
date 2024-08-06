@@ -24,13 +24,18 @@ def CreateChatSupport(request: HttpRequest):
     )
 
 @login_required(login_url=LOGIN_URL)
-def ChatSupport(request: HttpRequest, name='test'):
+def ChatSupport(request: HttpRequest):
     username = request.GET.get('username')
     id_ticket = request.GET.get('id_ticket')
     print(username)
     print(id_ticket)
 
     time = datetime.today()
+    if request.user.is_staff is True:
+        print(request.user)
+        cache_id_ticket.append(id_ticket)
+        DataTicket.objects.filter(id_ticket=id_ticket).update(accept_staff_name=request.user.username, date_accept_ticket=time)
+        return render(request, 'SupportChat.html', {'username': request.user.username, 'id_ticket': id_ticket})
 
     with connection.cursor() as cursor:
         try:

@@ -5,11 +5,14 @@ from .utils import random_id_ticket
 from django.db import connection
 from django.db.utils import IntegrityError, ProgrammingError
 from .cache_id_ticket import cache_id_ticket
+from django.contrib.auth.models import User
+from asgiref.sync import sync_to_async
+
 
 
 
 class ChatSaport(AsyncWebsocketConsumer):
-    async def connect(self,):
+    async def connect(self):
         print('1')
         self.roomGroupName = cache_id_ticket[0]
         del cache_id_ticket[0]
@@ -17,9 +20,16 @@ class ChatSaport(AsyncWebsocketConsumer):
             self.roomGroupName,
             self.channel_name
         )
-
+        
         await self.accept()
 
+        # usernname = self.scope["user"]
+        # print(usernname)
+        # is_staff = User.objects.filter(is_staff=True)
+        # print(is_staff)
+
+        
+        
     async def disconnect(self):
         print('2')
         await self.channel_layer.group_discard(

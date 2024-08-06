@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open ticket</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .ticket-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .ticket {
+            width: 250px;
+            height: 200px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .ticket h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .ticket p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container" id="ticket-container">
+        {% for element in data_ticket %}
+        <div class="ticket">
+            <a href="http://127.0.0.1:8000/support/SupportChat/?username={{element.0}}&id_ticket={{element.1}}">
+                <h3>Username: {{element.0}}</h3>
+                <h3>id ticket: {{element.1}}</h3>
+                <h3>what accept?: {{element.2}}</h3>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

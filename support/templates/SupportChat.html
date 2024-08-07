@@ -64,9 +64,19 @@
         };
 
         document.querySelector("#closeTicketButton").onclick = function () {
-            // Логика закрытия тикета
             alert("Тикет закрыт!");
-            chatSocket.close()
+            if ("{{request.user.is_staff}}" === true){
+                setTimeout(function(){
+                window.location.href = 'http://127.0.0.1:8000/admin_panel/views_open_ticket';
+                }, 5);
+            } else{
+                setTimeout(function(){
+                window.location.href = 'http://127.0.0.1:8000/support/';
+                }, 5);  
+            }
+            
+
+            
             // Здесь можно добавить логику для закрытия тикета, например, отправку сообщения на сервер
         };
     </script>

@@ -36,37 +36,25 @@ def ChatSupport(request: HttpRequest):
         cache_id_ticket.append(id_ticket)
         DataTicket.objects.filter(id_ticket=id_ticket).update(accept_staff_name=request.user.username, date_accept_ticket=time)
         return render(request, 'SupportChat.html', {'username': request.user.username, 'id_ticket': id_ticket})
-
-    with connection.cursor() as cursor:
-        try:
-            cursor.execute(f'''
-            CREATE TABLE {username}_ticket
-            (   
-                id_ticket varchar(11) PRIMARY KEY,
-                username varchar(40),
-                date_create timestamp without time zone,
-                username_staf varchar(40)
-            );
-            INSERT INTO {username}_ticket
-            VALUES ('{id_ticket}', '{username}', TIMESTAMP '{time}', 'None')
-            ''')
-
-            DataTicket.objects.create(
-                id_ticket=id_ticket,
-                username_create_ticket=username,
-                date_create_ticket=time
-                )
-            
-            cache_id_ticket.append(id_ticket)
-
-            
-        except ProgrammingError:
+    else:
+        check_username_db = DataTicket.objects.filter(username_create_ticket=request.user.username)
+        print(check_username_db)
+        if check_username_db:
             id_ticket = DataTicket.objects.get(username_create_ticket=request.user.username).id_ticket
             print(id_ticket)
             cache_id_ticket.append(id_ticket)
             return render(request, 'SupportChat.html', {'username': request.user.username})
-            
-    return render(request, 'SupportChat.html', {'username': username, 'id_ticket': id_ticket})
+    
+        DataTicket.objects.create(
+            id_ticket=id_ticket,
+            username_create_ticket=username,
+            date_create_ticket=time
+            )
+        
+        cache_id_ticket.append(id_ticket)
+        return render(request, 'SupportChat.html', {'username': username})
+
+
 
     
 @login_required(login_url=LOGIN_URL)

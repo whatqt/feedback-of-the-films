@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import DataTicket
+from .models import DataTicket, DataClosedTicket
 from .utils import random_id_ticket
 from django.db import connection
 from django.db.utils import IntegrityError, ProgrammingError
@@ -28,10 +28,8 @@ class ChatSaport(AsyncWebsocketConsumer):
         username = self.scope["user"]
         print(username)
         check_is_staff = await database_sync_to_async(check_staff)(username)
-        print(check_is_staff)
+
     
-
-
     async def receive(self, text_data):
         print('3')
         text_data_json = json.loads(text_data)
@@ -47,15 +45,23 @@ class ChatSaport(AsyncWebsocketConsumer):
         
     async def sendMessage(self, event):
         print('4')
+        print(self.roomGroupName)
+        try:
+            check_id_ticket_delete =  await database_sync_to_async(check_delete_id)(self.roomGroupName)
+            await self.send(text_data = json.dumps({
+                "message":'Этот тикет был закрыт админом. Если у вас есть вопросы, то создайте новый тикет.',
+                "username":'System'
+                }))
+            return
+        except DataClosedTicket.DoesNotExist:
+            pass
         message = event["message"]
         username = event["username"]
-        #делать проверку на пользователя(имя румы). Если его тикет лежит в таблице для закрытых тикетов, то делаем дисконект.
-        #и опвещаем о том, что тикет был закрыт
-        #Добавить логику добалвяния тикета в бд о закрытых тикетов
+
         print(username)
         print(message)
         print(event)
         await self.send(text_data = json.dumps({"message":message ,"username":username}))
 
-def check_staff(username):
-    return User.objects.get(username=username).is_staff
+def check_delete_id(id_ticket):
+    return DataClosedTicket.objects.get(id_ticket=id_ticket).id_ticket

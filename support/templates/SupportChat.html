@@ -24,8 +24,12 @@
 <body>
     <div class="header">
         <h1>Чат с модератором</h1>
-        {% if  request.user.is_staff is True %}
-          <button id="closeTicketButton">Закрыть тикет</button>
+        {% if request.user.is_staff %}
+        <form method="post" action="http://127.0.0.1:8000/admin_panel/closed_ticket_db" id="closeTicketButton">
+            {% csrf_token %}
+            <p>ID ticket<br> <input name="id_ticket"/></p>
+            <button id="closeTicketButton" value="Send">Закрыть тикет</button>
+        </form>
         {% endif %}
     </div>
     <br>
@@ -61,23 +65,6 @@
             div.innerHTML = data.username + " : " + data.message;
             document.querySelector("#id_message_send_input").value = "";
             document.querySelector("#id_chat_item_container").appendChild(div);
-        };
-
-        document.querySelector("#closeTicketButton").onclick = function () {
-            alert("Тикет закрыт!");
-            if ("{{request.user.is_staff}}" === true){
-                setTimeout(function(){
-                window.location.href = 'http://127.0.0.1:8000/admin_panel/views_open_ticket';
-                }, 5);
-            } else{
-                setTimeout(function(){
-                window.location.href = 'http://127.0.0.1:8000/support/';
-                }, 5);  
-            }
-            
-
-            
-            // Здесь можно добавить логику для закрытия тикета, например, отправку сообщения на сервер
         };
     </script>
 </body>

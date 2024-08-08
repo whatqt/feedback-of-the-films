@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
-from django.db import connection
-from django.db.utils import IntegrityError, ProgrammingError
+from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .utils import random_id_ticket
@@ -53,10 +51,3 @@ def ChatSupport(request: HttpRequest):
         
         cache_id_ticket.append(id_ticket)
         return render(request, 'SupportChat.html', {'username': username})
-
-
-
-    
-@login_required(login_url=LOGIN_URL)
-def modoretor_SupportChat(request: HttpRequest):
-    pass

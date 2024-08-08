@@ -1,12 +1,7 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import DataTicket, DataClosedTicket
-from .utils import random_id_ticket
-from django.db import connection
-from django.db.utils import IntegrityError, ProgrammingError
+from .models import DataClosedTicket
 from .cache_id_ticket import cache_id_ticket
-from django.contrib.auth.models import User
-from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 
 
@@ -27,7 +22,6 @@ class ChatSaport(AsyncWebsocketConsumer):
         print('2')
         username = self.scope["user"]
         print(username)
-        check_is_staff = await database_sync_to_async(check_staff)(username)
 
     
     async def receive(self, text_data):

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Рецензии других пользователей{% endblock title %}
+{% block header %}Рецензии других пользователей{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="/select_films/have_review">Фильмы на которые есть рецензии</a>
+    <a href="/select_films/my_review">Мои рецензии</a>
+    <a href="/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<div class="review-container">
+    <h1 class="movie-title">Название фильма: {{film_data.0}}</h1>
+    <p class="release-year">Год выпуска фильма: {{film_data.1}}</p>
+    <h3 class="review-text">Описание фильма: {{film_data.2}}</h3>
+</div>
+<br>
+{% for key, info in review_data.items %}
+<div class="review-container">
+    <h1 class="nameuser">Имя пользователя: {{info.0}}</h1>
+    <p class="release-year">Дата рецензии: {{info.1}}</p>
+    <h2 class="review-text">Рецензия: {{info.2}}</h3>
+</div>
+<br>
+{% endfor %}
+</body>
+{% endblock content %}
+{% block rights %}
+{% endblock rights %}
+

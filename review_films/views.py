@@ -14,6 +14,9 @@ from datetime import datetime
 LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 
 
+def test_index(request: HttpRequest):
+    return render(request, 'base.html')
+
 @login_required(login_url=LOGIN_URL)
 def select_films(request: HttpRequest):
     if request.method == 'POST':
@@ -23,8 +26,8 @@ def select_films(request: HttpRequest):
         get_info_films(movie_name_post, films_dict, list_names_films)
         # print(films_dict)
         context_data = {'films_dict': films_dict, 'movie_name_post': movie_name_post}
-        return render(request, 'output_films.html', context=context_data)
-    return render(request, 'select_films.html')
+        return render(request, 'output_films_base.html', context=context_data)
+    return render(request, 'select_films_base.html')
 
 @login_required(login_url=LOGIN_URL)
 def feedback_films(request: HttpRequest):
@@ -68,10 +71,10 @@ def feedback_films(request: HttpRequest):
                     pass
             print(movie_title_get)
             data_context = {'movie_title': movie_title_get, 'movie_authors': movie_authors_get}
-            return render(request, 'feedback_film.html', context=data_context)
+            return render(request, 'feedback_film_base.html', context=data_context)
         
         data_context = {'movie_title': movie_title_get ,'movie_authors': movie_authors_get}
-        return render(request, 'feedback_film.html', context=data_context)
+        return render(request, 'feedback_film_base.html', context=data_context)
     elif request.method == 'POST':
         username = request.user
         movie_title_post = request.POST.get('movie_title')
@@ -120,7 +123,7 @@ def have_review(request: HttpRequest):
         data[number_film] = data_film
         number_film+=1
     print(data)
-    return render(request, 'have_review_all.html', context={'data': data})
+    return render(request, 'have_review_base.html', context={'data': data})
 
 @login_required(login_url=LOGIN_URL)
 def views_feedback_films(request: HttpRequest):
@@ -177,7 +180,7 @@ def view_feedback(request: HttpRequest):
             review_data[number_review] = info
             number_review+=1
 
-        return render(request, 'view_feedback.html', {'review_data': review_data, 'film_data': film_data})
+        return render(request, 'view_feedback_base.html', {'review_data': review_data, 'film_data': film_data})
     
 
 @login_required(login_url=LOGIN_URL)
@@ -186,7 +189,7 @@ def my_review(request: HttpRequest):
     info = Test_UserReview.objects.all()
     user_review = info.filter(username=user).values_list('movie_title','movie_authors','brief_informatio', 'movie_review','time_movie_review')
     print(user_review)
-    return render(request, 'my_review.html', {'data': user_review})
+    return render(request, 'my_review_base.html', {'data': user_review})
 
 @login_required(login_url=LOGIN_URL)
 def editing_my_review(request: HttpRequest):
@@ -195,7 +198,7 @@ def editing_my_review(request: HttpRequest):
         movie_authors_get = request.GET.get('movie_authors')
         brief_information_get = request.GET.get('brief_information')
         data = {'movie_title': movie_title_get, 'movie_authors': movie_authors_get, 'brief_information': brief_information_get}
-        return render(request, 'editing_my_review.html', data)
+        return render(request, 'editing_my_review_base.html', data)
     elif request.method == 'POST':
         movie_title_get = request.GET.get('movie_title')
         movie_authors_get = request.GET.get('movie_authors')

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Выбор фильма{% endblock title %}
+{% block header %}Выбор фильма{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="/select_films/my_review">Мои рецензии</a>
+    <a href="/select_films/have_review">Фильмы на которые есть рецензии</a>
+    <a href="/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <label for="movie_title">Название фильма:</label>
+        <input type="text" id="movie_name" name="movie_name" required><br>
+        <input type="submit" value="Отправить">
+    </form>
+</div>
+{% endblock content %}
+

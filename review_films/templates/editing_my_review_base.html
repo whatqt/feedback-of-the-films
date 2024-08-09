@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Ваши рецензии{% endblock title %}
+{% block header %}Ваши рецензии{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="/select_films/have_review">Фильмы на которые есть рецензии</a>
+    <a href="/select_films/my_review">Мои рецензии</a>
+    <a href="/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<h1>Изменение рецензии</h1>
+<h1 class="movie-title">Название фильма: {{movie_title}}</h1>
+<h2 class="release-year">Год выпуска фильма: {{movie_authors}}</h2>
+<h2 class="movie-info">Информация о фильме: {{brief_information}}</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="review">Рецензия:</label><br>
+    <textarea id="review" name="editing_review" rows="10" cols="50"></textarea><br>
+    <input type="submit" value="Изменить рецензию">
+</form>
+{% endblock content %}
+{% block rights %}
+{% endblock rights %}
+

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Результат поиска{% endblock title %}
+{% block header %}Результат поиска по слову {{movie_name_post}}{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="/select_films/my_review">Мои рецензии</a>
+    <a href="/select_films/have_review">Фильмы на которые есть рецензии</a>
+    <a href="/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<style>
+    .small {
+        font-size: 0.9em;
+    }
+    .medium {
+        font-size: 1em;
+    }
+    .large {
+        font-size: 1.2em;
+    }
+</style>
+{% for key, info in films_dict.items %}
+<div>
+    <a href="http://127.0.0.1:8000/select_films/feedback_film?movie_title={{info.0}}&movie_authors={{info.1}}&brief_information={{info.2}}">
+    <span class="small">
+            <h2>Название фильма:</h2><h3>{{info.0}}</h3>
+        </span>
+    </a>
+    <span class="medium">
+        <h2>Год выпуска и страна:</h2><h3>{{info.1}}</h3>
+    </span>
+    <span class="large">
+        <h2>Мини-содержание фильма:</h2><h3>{{info.2}}</h3>
+    </span>
+</div>
+{% endfor %}
+{% endblock content %}
+{% block rights %}
+{% endblock rights %}

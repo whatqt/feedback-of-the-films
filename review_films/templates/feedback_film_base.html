@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Результат поиска{% endblock title %}
+{% block header %}Напишите рецензию{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="/select_films/my_review">Мои рецензии</a>
+    <a href="/select_films/have_review">Фильмы на которые есть рецензии</a>
+    <a href="/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label for="movie_title">Название фильма :</label>
+        <input type="text" id="movie_title" name="movie_title" value="{{movie_title}}" readonly required>
+    </div>
+    <div>
+        <label for="movie_authors">Авторы фильма:</label>
+        <input type="text" id="movie_authors" name="movie_authors" value="{{movie_authors}}" readonly required>
+    </div>
+    <div>
+        <label for="movie_review">Рецензия на фильм:</label>
+        <textarea id="movie_review" name="movie_review" rows="4" cols="50" required></textarea>
+    </div>
+    <div>
+        <button type="submit">Отправить</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#movie_evaluation").on("keydown", function(event) {
+            event.preventDefault();
+        });
+    });
+    </script>        
+</form>
+{% endblock content %}
+{% block rights %}
+{% endblock rights %}

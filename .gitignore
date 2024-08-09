@@ -4,5 +4,9 @@ register/__pycache__/
 review_films/__pycache__
 feeadback_of_the_film/__pycache__/
 register/migrations/
+support/migrations/
+support/__pycache__/
+migrations/
+__pycache__/
 review_films/migrations/
 manage.py

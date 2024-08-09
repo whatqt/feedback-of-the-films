@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Saport Chat</title>
-</head>
-<body>
-    <a href="http://127.0.0.1:8000/support/SupportChat?username={{username}}&id_ticket={{id_ticket}}">
-        <h1>
-            <input type="button" value="Создать тикет">
-        </h1>
-    </a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Создание тикета{% endblock title %}
+{% block header %}Создайте тикет при помощи кнопки ниже для получения помощи от администрации!{% endblock header %}
+{% block navigation %}
+<nav>
+    <a href="/select_films/">Выбрать фильм</a>
+    <a href="http://127.0.0.1:8000/">Домашняя страница</a>
+</nav>
+{% endblock navigation %}
+{% block content %}
+<a href="http://127.0.0.1:8000/support/SupportChat?username={{username}}&id_ticket={{id_ticket}}">
+    <h1>
+        <input type="button" value="Создать тикет">
+    </h1>
+</a>
+{% endblock content %}

@@ -14,9 +14,6 @@ from datetime import datetime
 LOGIN_URL='http://127.0.0.1:8000/register/log_in'
 
 
-def test_index(request: HttpRequest):
-    return render(request, 'base.html')
-
 @login_required(login_url=LOGIN_URL)
 def select_films(request: HttpRequest):
     if request.method == 'POST':

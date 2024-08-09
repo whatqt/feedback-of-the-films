@@ -5,25 +5,26 @@
 {% block navigation %}
 <nav>
     <a href="/register/log_in">Войти в аккаунт</a>
-    <a href="/register">Зарегистрироваться</a>
 </nav>
 {% endblock navigation %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Имя пользователя:</label>
-    <input type="text" id="username" name="username" required><br>
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" required><br>
 
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password" required><br>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required><br>
 
-    <label for="confirm_password">Подтверждение пароля:</label>
-    <input type="password" id="confirm_password" name="confirm_password" oninput="checkPasswordMatch()" required><br>
+        <label for="confirm_password">Подтверждение пароля:</label>
+        <input type="password" id="confirm_password" name="confirm_password" oninput="checkPasswordMatch()" required><br>
 
-    <span id="password_match_message"></span><br>
+        <span id="password_match_message"></span><br>
 
-    <input type="submit" value="Зарегистрироваться">
-</form>
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+</div>
 
 <script>
     function checkPasswordMatch() {

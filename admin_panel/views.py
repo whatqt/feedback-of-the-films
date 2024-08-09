@@ -10,13 +10,13 @@ from .utils import check_staff
 
 @check_staff
 def index_admin(request: HttpRequest):
-    return HttpResponse("<h1>Добро пожаловать в панель администратора</h1>")
+    return render(request, 'index_admin_base.html')
 
 @check_staff
 def views_open_ticket(request: HttpRequest):
     data_ticket = DataTicket.objects.values_list('username_create_ticket','id_ticket', 'accept_staff_name')
     print(data_ticket)
-    return render(request, 'views_open_ticket.html', context={'data_ticket': data_ticket})
+    return render(request, 'views_open_ticket_base.html', context={'data_ticket': data_ticket})
 
 @check_staff
 def closed_ticket_db(request: HttpRequest):
@@ -35,5 +35,5 @@ def closed_ticket_db(request: HttpRequest):
         )
         DataTicket.objects.filter(id_ticket=id_ticket).delete()
         print(info_ticket)
-        return HttpResponse('<h1>Тикет закрыт</h1>')
+        return render(request, 'closed_ticket_base.html')
 

@@ -5,18 +5,19 @@
 {% block navigation %}
 <nav>
     <a href="/register">Зарегистрироваться</a>
-    <a href="/register/log_in">Войти в аккаунт</a>
 </nav>
 {% endblock navigation %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username"><br><br>
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br><br>
-    
-    <input type="submit" value="Log in">
-  </form>
+<div class="container">
+  <form method="post">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      
+      <input type="submit" value="Log in">
+    </form>
+</div>
 {% endblock content %}

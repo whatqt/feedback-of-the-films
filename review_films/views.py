@@ -75,7 +75,7 @@ def feedback_films(request: HttpRequest):
     elif request.method == 'POST':
         username = request.user
         movie_title_post = request.POST.get('movie_title')
-        movie_authors_post = request.GET.get('movie_authors')
+        movie_authors_post = request.POST.get('movie_authors')
         brief_information_post = request.GET.get('brief_information')
         movie_review_post = request.POST.get('movie_review')
         print(movie_title_post)
@@ -121,31 +121,6 @@ def have_review(request: HttpRequest):
         number_film+=1
     print(data)
     return render(request, 'have_review_base.html', context={'data': data})
-
-@login_required(login_url=LOGIN_URL)
-def views_feedback_films(request: HttpRequest):
-    id_films = Test_DataFullInfoFilms.objects.values_list('id', flat=True)
-    print(id_films)
-    info_user = {}
-    data = {}
-    number_user = 1
-    for id_film in id_films:
-        with connection.cursor() as cursor:
-            select_movie_review = f'''
-            SELECT * FROM film_{id_film}
-            '''
-            cursor.execute(select_movie_review)
-            row = cursor.fetchone()
-            print(row)
-            info_user[number_user] = row
-            info_film = Test_DataFullInfoFilms.objects.filter(id=id_film).values_list('movie_title', 'movie_authors')
-            print(info_film)
-            data[number_user] = [row[0], row[1], row[2], info_film[0][0], info_film[0][1]]
-            number_user+=1
-    print(data)
-    
-    return render(request, 'views_feedback_films.html', {'data': data})
-
 
 @login_required(login_url=LOGIN_URL)    
 def view_feedback(request: HttpRequest):

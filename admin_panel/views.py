@@ -24,10 +24,6 @@ def closed_ticket_db(request: HttpRequest):
         id_ticket = request.POST.get('id_ticket')
         print(id_ticket)
         info_ticket = DataTicket.objects.filter(id_ticket=id_ticket).values_list()[0]
-        print(info_ticket)
-        print(info_ticket[2])
-        print(info_ticket[4])
-
         DataClosedTicket.objects.create(
             id_ticket=info_ticket[0], username_create_ticket=info_ticket[1],
             date_create_ticket=info_ticket[2], accept_staff_name=info_ticket[3],
